@@ -90,10 +90,10 @@ class Reference(Link):
     "Read the reference and set the arrow."
     self.key = self.getparameter('reference')
     if self.key in Label.names:
-      self.direction = u'↑'
+      self.direction = '↑'
       label = Label.names[self.key]
     else:
-      self.direction = u'↓'
+      self.direction = '↓'
       label = Label().complete(' ', self.key, 'preref')
     self.destination = label
     self.formatcontents()
@@ -106,18 +106,18 @@ class Reference(Link):
     formatkey = self.getparameter('LatexCommand')
     if not formatkey:
       formatkey = 'ref'
-    self.formatted = u'↕'
+    self.formatted = '↕'
     if formatkey in StyleConfig.referenceformats:
       self.formatted = StyleConfig.referenceformats[formatkey]
     else:
       Trace.error('Unknown reference format ' + formatkey)
-    self.replace(u'↕', self.direction)
+    self.replace('↕', self.direction)
     self.replace('#', '1')
     self.replace('on-page', Translator.translate('on-page'))
     partkey = self.destination.findpartkey()
     # only if partkey and partkey.number are not null, send partkey.number
     self.replace('@', partkey and partkey.number)
-    self.replace(u'¶', partkey and partkey.tocentry)
+    self.replace('¶', partkey and partkey.tocentry)
     if not '$' in self.formatted or not partkey or not partkey.titlecontents:
       # there is a $ left, but it should go away on preprocessing
       self.contents = [Constant(self.formatted)]

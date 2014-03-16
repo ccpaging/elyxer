@@ -133,14 +133,14 @@ class Config(object):
   def mix(self, reader, addreader):
     "Mix two configuration files"
     Trace.message('--- new content follows ---')
-    for name, object in addreader.objects.iteritems():
+    for name, object in addreader.objects.items():
       Trace.message('')
       Trace.message('[' + name + ']')
       equiv = reader.objects[name]
-      for key, value in object.iteritems():
+      for key, value in object.items():
         if not key in equiv:
           equiv[key] = value
-          Trace.message(key + ':' + unicode(value))
+          Trace.message(key + ':' + str(value))
 
 class TranslationExport(object):
   "Export the translation to a file."
@@ -152,13 +152,13 @@ class TranslationExport(object):
     "Export the translation constants as a .po file."
     self.writer.writeline('# eLyXer internationalization file.')
     self.writer.writeline('# Created on ' + datetime.date.today().isoformat())
-    self.writer.writeline(u'# Contact: Alex Fernandez <elyxer@gmail.com>')
-    self.writer.writeline(u'# http://elyxer.nongnu.org/')
+    self.writer.writeline('# Contact: Alex Fernandez <elyxer@gmail.com>')
+    self.writer.writeline('# http://elyxer.nongnu.org/')
     self.writer.writeline('# This file is distributed under the same license as the eLyXer package.')
     self.writer.writeline('# (C) 2010 Alex Fernandez <elyxer@gmail.com>.')
     self.writer.writeline('#')
     self.writer.writeline('')
-    for key, message in constants.iteritems():
+    for key, message in constants.items():
       self.writer.writeline('')
       self.writer.writeline('#: ' + key)
       self.writer.writeline('msgid  "' + message + '"')

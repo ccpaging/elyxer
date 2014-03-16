@@ -92,12 +92,12 @@ class ImportCommands(ImportFile):
     pieces = line.split()
     if len(pieces) < 5:
       return
-    unicode = pieces[0]
-    if not unicode.startswith('0x'):
-      Trace.error('Invalid unicode ' + unicode)
+    str = pieces[0]
+    if not str.startswith('0x'):
+      Trace.error('Invalid unicode ' + str)
       return
-    unicode = unicode.replace('0x', '')
-    unicodechar = unichr(int(unicode, 16))
+    str = str.replace('0x', '')
+    unicodechar = chr(int(str, 16))
     command = pieces[4].replace('"', '')
     command = self.serializer.unescape(command)
     self.setsymbol(command, unicodechar)

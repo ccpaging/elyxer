@@ -89,7 +89,7 @@ class StatementChooser(object):
 
   def choose(self, tok):
     "Parse a single statement."
-    token = tok.next()
+    token = next(tok)
     if not token:
       return None
     if token in self.starttokens:
@@ -103,8 +103,8 @@ class StatementChooser(object):
   def pendingstatement(self, tok):
     "Return any pending statement from elyxer.before."
     if tok.infor != 0:
-      tok.next()
-      function = getattr(self, 'forparens' + unicode(tok.infor))
+      next(tok)
+      function = getattr(self, 'forparens' + str(tok.infor))
       return function(tok)
     if len(tok.autoincreases) != 0:
       return self.autoincrease(tok)
@@ -148,7 +148,7 @@ class StatementChooser(object):
     "Parse the first statement of a for loop."
     "The remaining parts of the for(;;){} are parsed later."
     tok.checknext('(')
-    first = self.assigninvoke(tok, tok.next())
+    first = self.assigninvoke(tok, next(tok))
     tok.infor = 1
     return first
 
@@ -176,7 +176,7 @@ class StatementChooser(object):
     "Parse a block after an else."
     self.parser.expectblock(tok)
     if tok.peek() == 'if':
-      tok.next()
+      next(tok)
       self.closeblock(tok)
       return 'el' + self.conditionblock(tok)
     return 'else:'
@@ -203,10 +203,10 @@ class StatementChooser(object):
 
   def throwstatement(self, tok):
     "A statement to throw (raise) an exception."
-    exception = tok.next()
+    exception = next(tok)
     if exception == 'new':
       return 'raise ' + self.createstatement(tok)
-    token = tok.next()
+    token = next(tok)
     if token == ';':
       return 'raise ' + exception
     Trace.error('Invalid throw statement: "throw ' + exception + ' ' + token + '"')
@@ -214,7 +214,7 @@ class StatementChooser(object):
 
   def throwsdeclaration(self, tok):
     "A throws clause, should be ignored."
-    name = tok.next()
+    name = next(tok)
     return ''
 
   def assigninvoke(self, tok, token = None):
@@ -222,12 +222,12 @@ class StatementChooser(object):
     self.onelineblock(tok)
     if not token:
       token = tok.current()
-    token2 = tok.next()
+    token2 = next(tok)
     if token2 == '=':
       # assignment
       return token + ' = ' + self.parser.parsevalue(tok)
     if token2 == '.':
-      member = tok.next()
+      member = next(tok)
       return self.assigninvoke(tok, token + '.' + member)
     if token2 == '(':
       parameters = self.parser.parseparameters(tok)
@@ -254,7 +254,7 @@ class StatementChooser(object):
     if token2 in tok.javasymbols:
       Trace.error('Unknown symbol ' + token2 + ' for ' + token)
       return '*error ' + token + ' ' + token2 + ' error*'
-    token3 = tok.next()
+    token3 = next(tok)
     if token3 == ';':
       # a declaration; ignore
       return ''
@@ -278,12 +278,12 @@ class StatementChooser(object):
   def ignorestatement(self, tok):
     "Ignore a whole statement."
     while tok.current() != ';':
-      tok.next()
+      next(tok)
     return None
 
   def createstatement(self, tok):
     "A statement to create an object and use it: new Class().do()."
-    tok.next()
+    next(tok)
     return self.parser.parseinvocation(tok)
 
   def thisstatement(self, tok):

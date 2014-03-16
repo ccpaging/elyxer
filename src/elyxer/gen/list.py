@@ -46,7 +46,7 @@ class ListItem(Container):
     self.contents = [tag]
 
   def __unicode__(self):
-    return self.type + ' item @ ' + unicode(self.begin)
+    return self.type + ' item @ ' + str(self.begin)
 
 class DeeperList(Container):
   "A nested list"
@@ -64,9 +64,9 @@ class DeeperList(Container):
       return
 
   def __unicode__(self):
-    result = 'deeper list @ ' + unicode(self.begin) + ': ['
+    result = 'deeper list @ ' + str(self.begin) + ': ['
     for element in self.contents:
-      result += unicode(element) + ', '
+      result += str(element) + ', '
     return result[:-2] + ']'
 
 class PendingList(object):
@@ -124,9 +124,9 @@ class PendingList(object):
     self.type = 'Itemize'
 
   def __unicode__(self):
-    result = 'pending ' + unicode(self.type) + ': ['
+    result = 'pending ' + str(self.type) + ': ['
     for element in self.contents:
-      result += unicode(element) + ', '
+      result += str(element) + ', '
     if len(self.contents) > 0:
       result = result[:-2]
     return result + ']'

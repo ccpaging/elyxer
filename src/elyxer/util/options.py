@@ -45,7 +45,7 @@ class Options(object):
   html = False
   help = False
   showlines = True
-  unicode = False
+  str = False
   iso885915 = False
   css = []
   favicon = ''
@@ -272,5 +272,5 @@ class BranchOptions(object):
 
   def __unicode__(self):
     "String representation"
-    return 'options for ' + self.name + ': ' + unicode(self.options)
+    return 'options for ' + self.name + ': ' + str(self.options)
 

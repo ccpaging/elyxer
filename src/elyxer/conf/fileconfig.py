@@ -111,7 +111,7 @@ class ConfigWriter(object):
       Trace.error('Unknown config type ' + valuedict.__class__.__name__ +
           ' in ' + attr)
       return
-    names = valuedict.keys()
+    names = list(valuedict.keys())
     names.sort()
     for name in names:
       value = self.serializer.serialize(valuedict[name])
@@ -142,7 +142,7 @@ class ConfigToPython(ConfigWriter):
         datetime.date.today().isoformat())
     self.writer.writeline('')
     classes = self.sort(objects)
-    names = classes.keys()
+    names = list(classes.keys())
     names.sort()
     for classname in names:
       self.writeclass(classname, classes[classname])
@@ -152,7 +152,7 @@ class ConfigToPython(ConfigWriter):
     self.writer.writeline('class ' + name + '(object):')
     self.writer.writeline('  "Configuration class from elyxer.config file"')
     self.writer.writeline('')
-    names = current.keys()
+    names = list(current.keys())
     names.sort()
     for attrname in names:
       self.writeattr(attrname, current[attrname])
@@ -165,7 +165,7 @@ class ConfigToPython(ConfigWriter):
     self.writer.writestring('  ' + name + ' = ')
     self.writer.writeline('{')
     string = '      '
-    names = contents.keys()
+    names = list(contents.keys())
     names.sort()
     for name in names:
       value = self.serializer.pyserialize(contents[name])
@@ -185,7 +185,7 @@ class ConfigToPython(ConfigWriter):
   def sort(self, objects):
     "Sort the objects into classes"
     classes = dict()
-    for name, object in objects.iteritems():
+    for name, object in objects.items():
       pieces = name.split('.')
       if len(pieces) != 2:
         Trace.error('Wrong method name ' + name)
@@ -247,7 +247,7 @@ class ConfigSerializer(object):
     "Remove the escaping from elyxer.a string."
     if string.startswith('&#x') and string.endswith(';'):
       # single unicode character
-      return unichr(int('0x' + string[3:-1], 16))
+      return chr(int('0x' + string[3:-1], 16))
     for escape, value in self.escapes:
       string = string.replace(value, escape)
     return string

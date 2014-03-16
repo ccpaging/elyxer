@@ -81,8 +81,8 @@ class PubEntry(BibEntry):
     part = BibPart(self.parser.tags).parse(pos)
     for variable in part.searchall(BibVariable):
       if variable.empty():
-        Trace.error('Error parsing BibTeX template for ' + unicode(self) + ': '
-            + unicode(variable) + ' is empty')
+        Trace.error('Error parsing BibTeX template for ' + str(self) + ': '
+            + str(variable) + ' is empty')
     return [part]
 
   def __unicode__(self):

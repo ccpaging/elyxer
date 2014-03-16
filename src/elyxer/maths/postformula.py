@@ -84,7 +84,7 @@ class PostFormula(object):
     if len(tags) == 0:
       return NumberGenerator.chaptered.generate('formula')
     if len(tags) > 1:
-      Trace.error('More than one tag in formula: ' + unicode(formula))
+      Trace.error('More than one tag in formula: ' + str(formula))
     return tags[0].tag
 
   def searchrow(self, function):

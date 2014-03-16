@@ -66,9 +66,9 @@ class TOCEntry(Container):
       link.complete(container.partkey.tocentry)
     if container.partkey.titlecontents:
       if Options.notoclabels:
-        separator = u' '
+        separator = ' '
       else:
-        separator = u': '
+        separator = ': '
       if container.partkey.tocentry:
         link.contents.append(Constant(separator))
       link.contents += container.partkey.titlecontents
@@ -133,7 +133,7 @@ class IndentedEntry(Container):
 
   def __unicode__(self):
     "Return a printable documentation."
-    return 'Indented ' + unicode(self.entry)
+    return 'Indented ' + str(self.entry)
 
 class TOCTree(object):
   "A tree that contains the full TOC."

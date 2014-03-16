@@ -51,11 +51,11 @@ class StatementParser(object):
   def translateclass(self, tok):
     "Translate a class definition."
     tok.checknext('class')
-    name = tok.next()
+    name = next(tok)
     tok.inclass = name
     inheritance = ''
     while tok.peek() != '{':
-      inheritance += ' ' + tok.next()
+      inheritance += ' ' + next(tok)
     Trace.error('Unused inheritance ' + inheritance)
     return 'class ' + name + '(object):'
 
@@ -66,10 +66,10 @@ class StatementParser(object):
     if token == tok.inclass and name == '(':
       # constructor
       return self.translatemethod(token, tok)
-    after = tok.next()
+    after = next(tok)
     while after == '[':
       tok.checknext(']')
-      after = tok.next()
+      after = next(tok)
     if after == ';':
       return self.translateemptyattribute(name)
     if after == '(':
@@ -80,7 +80,7 @@ class StatementParser(object):
 
   def membertoken(self, tok):
     "Get the next member token, excluding static, []..."
-    token = tok.next()
+    token = next(tok)
     if token in ['static', 'synchronized', 'final']:
       return self.membertoken(tok)
     if token == '[':
@@ -223,12 +223,12 @@ class StatementParser(object):
   def parsetoendings(self, tok, endings):
     "Parse the tokenizer up to a number of endings."
     result = ''
-    tok.next()
+    next(tok)
     while not tok.current() in endings:
       processed = self.processtoken(tok)
       if processed == '++':
         processed = '+ 1'
-        Trace.debug('Increasing ' + result + ' for endings: ' + unicode(endings))
+        Trace.debug('Increasing ' + result + ' for endings: ' + str(endings))
         tok.autoincreases.append(result)
       if processed == '--':
         Trace.debug('Decreasing ' + result)
@@ -238,10 +238,10 @@ class StatementParser(object):
         processed = ' ' + processed
       result += processed
       if not tok.current in endings:
-        tok.next()
+        next(tok)
     if len(result) > 0:
       result = result[1:]
-    Trace.debug('Left after ' + tok.current() + ', endings ' + unicode(endings) + ', result: ' + result)
+    Trace.debug('Left after ' + tok.current() + ', endings ' + str(endings) + ', result: ' + result)
     return result
 
   def expectblock(self, tok):
@@ -261,7 +261,7 @@ class Tokenizer(object):
       '&&':'and', '||':'or', '!':'not'
       }
   comments = ['//', '/*']
-  javasymbols = comments + unmodified + modified.keys()
+  javasymbols = comments + unmodified + list(modified.keys())
 
   def __init__(self, pos):
     self.pos = pos
@@ -276,7 +276,7 @@ class Tokenizer(object):
     self.variables = ['this']
     self.infor = 0
 
-  def next(self):
+  def __next__(self):
     "Get the next single token, and store it for current()."
     if self.peeked:
       self.currenttoken = self.peeked
@@ -287,7 +287,7 @@ class Tokenizer(object):
 
   def checknext(self, token):
     "Check that the next token is the parameter."
-    self.next()
+    next(self)
     if self.currenttoken != token:
       Trace.error('Expected token ' + token + ', found ' + self.currenttoken)
       return False

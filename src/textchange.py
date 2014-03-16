@@ -78,10 +78,10 @@ def processall(args):
     del args[0]
     counter = process(reader, writer, change)
     total += counter
-    Trace.message('  ' + unicode(counter) + ' occurrences in ' +
-        unicode(pythonfile))
+    Trace.message('  ' + str(counter) + ' occurrences in ' +
+        str(pythonfile))
     pythonfile.swaptemp()
-  Trace.message('Total replacements: ' + unicode(total))
+  Trace.message('Total replacements: ' + str(total))
 
 processall(sys.argv)
 

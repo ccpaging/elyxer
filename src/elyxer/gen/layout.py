@@ -62,12 +62,12 @@ class Layout(Container):
     partkey = PartKeyGenerator.forlayout(self)
     if partkey:
       self.partkey = partkey
-      self.output.tag = self.output.tag.replace('?', unicode(partkey.level))
+      self.output.tag = self.output.tag.replace('?', str(partkey.level))
 
   def __unicode__(self):
     "Return a printable representation."
     if self.partkey:
-      return 'Layout ' + self.type + ' #' + unicode(self.partkey.partkey)
+      return 'Layout ' + self.type + ' #' + str(self.partkey.partkey)
     return 'Layout of type ' + self.type
 
 class StandardLayout(Layout):
@@ -192,7 +192,7 @@ class Description(FirstWorder):
       return
     tag = 'span class="Description-entry"'
     self.contents.insert(0, TaggedText().complete(firstword, tag))
-    self.contents.insert(1, Constant(u' '))
+    self.contents.insert(1, Constant(' '))
 
 class List(FirstWorder):
   "A list layout"

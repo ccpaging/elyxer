@@ -54,7 +54,7 @@ class Table(Container):
         index += 1
       else:
         Trace.error('Unknown element type ' + element.__class__.__name__ +
-            ' in table: ' + unicode(element.contents[0]))
+            ' in table: ' + str(element.contents[0]))
         index += 1
 
 class Row(Container):
@@ -68,7 +68,7 @@ class Row(Container):
   def setcolumns(self, columns):
     "Process alignments for every column"
     if len(columns) != len(self.contents):
-      Trace.error('Columns: ' + unicode(len(columns)) + ', cells: ' + unicode(len(self.contents)))
+      Trace.error('Columns: ' + str(len(columns)) + ', cells: ' + str(len(self.contents)))
       return
     for index, cell in enumerate(self.contents):
       columns[index].set(cell)
@@ -107,7 +107,7 @@ class Cell(Container):
 
   def setattribute(self, attribute, value):
     "Set a cell attribute in the tag"
-    self.output.tag += ' ' + attribute + '="' + unicode(value) + '"'
+    self.output.tag += ' ' + attribute + '="' + str(value) + '"'
 
 class PostTable(object):
   "Postprocess a table"
@@ -168,8 +168,8 @@ class PostTable(object):
     if not mc:
       return
     if mc != '1':
-      Trace.error('Unprocessed multicolumn=' + unicode(multicolumn) +
-          ' cell ' + unicode(cell))
+      Trace.error('Unprocessed multicolumn=' + str(multicolumn) +
+          ' cell ' + str(cell))
       return
     total = 1
     index += 1

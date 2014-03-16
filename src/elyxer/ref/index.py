@@ -42,7 +42,7 @@ class ListInset(Container):
 
   def sortdictionary(self, dictionary):
     "Sort all entries in the dictionary"
-    keys = dictionary.keys()
+    keys = list(dictionary.keys())
     # sort by name
     keys.sort()
     return keys
@@ -97,7 +97,7 @@ class IndexReference(Link):
 class IndexHeader(Link):
   "The header line for an index entry. Keeps all arrows."
 
-  keyescapes = {'!':'', '|':'-', ' ':'-', '--':'-', ',':'', '\\':'', '@':'_', u'°':''}
+  keyescapes = {'!':'', '|':'-', ' ':'-', '--':'-', ',':'', '\\':'', '@':'_', '°':''}
 
   def create(self, names):
     "Create the header for the given index entry."
@@ -112,13 +112,13 @@ class IndexHeader(Link):
 
   def addref(self, reference):
     "Create an arrow pointing to a reference."
-    reference.index = unicode(len(self.arrows))
+    reference.index = str(len(self.arrows))
     reference.destination = self.anchor
-    reference.complete(u'↓', 'entry-' + self.key + '-' + reference.index)
-    arrow = Link().complete(u'↑', type = 'IndexArrow')
+    reference.complete('↓', 'entry-' + self.key + '-' + reference.index)
+    arrow = Link().complete('↑', type = 'IndexArrow')
     arrow.destination = reference
     if len(self.arrows) > 0:
-      self.contents.append(Constant(u', '))
+      self.contents.append(Constant(', '))
     self.arrows.append(arrow)
     self.contents.append(arrow)
 
@@ -227,8 +227,8 @@ class NomenclatureEntry(Link):
     key = symbol.replace(' ', '-').lower()
     if key in NomenclatureEntry.entries:
       Trace.error('Duplicated nomenclature entry ' + key)
-    self.complete(u'↓', 'noment-' + key)
-    entry = Link().complete(u'↑', 'nom-' + key)
+    self.complete('↓', 'noment-' + key)
+    entry = Link().complete('↑', 'nom-' + key)
     entry.symbol = symbol
     entry.description = description
     self.setmutualdestination(entry)
@@ -247,7 +247,7 @@ class PrintNomenclature(ListInset):
     self.partkey.addtoclabel(self)
     for key in self.sortdictionary(NomenclatureEntry.entries):
       entry = NomenclatureEntry.entries[key]
-      contents = [entry, Constant(entry.symbol + u' ' + entry.description)]
+      contents = [entry, Constant(entry.symbol + ' ' + entry.description)]
       text = TaggedText().complete(contents, 'div class="Nomenclated"', True)
       self.contents.append(text)
 

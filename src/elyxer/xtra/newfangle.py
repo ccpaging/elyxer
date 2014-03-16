@@ -65,8 +65,8 @@ class NewfangledChunk(Layout):
       NewfangledChunk.names[self.name] = []
     else:
       last = NewfangledChunk.names[self.name][-1]
-      forwardlink = Link().complete(self.number + u'→', 'chunkback:' + last.number, type='chunk')
-      backlink = Link().complete(u'←' + last.number + u' ', 'chunkforward:' + self.number, type='chunk')
+      forwardlink = Link().complete(self.number + '→', 'chunkback:' + last.number, type='chunk')
+      backlink = Link().complete('←' + last.number + ' ', 'chunkforward:' + self.number, type='chunk')
       forwardlink.setmutualdestination(backlink)
       last.right.contents.append(forwardlink)
       self.right.contents.append(backlink)
@@ -92,17 +92,17 @@ class NewfangledChunk(Layout):
   def declaration(self):
     "Get the chunk declaration."
     contents = []
-    text = u'⟨' + self.name + '[' + unicode(len(NewfangledChunk.names[self.name])) + '] '
+    text = '⟨' + self.name + '[' + str(len(NewfangledChunk.names[self.name])) + '] '
     contents.append(Constant(text))
     contents.append(self.origin)
     text = ''
     if NewfangledChunk.firsttime:
       Listing.processor = ChunkProcessor()
       NewfangledChunk.firsttime = False
-    text += u'⟩'
+    text += '⟩'
     if len(NewfangledChunk.names[self.name]) > 1:
       text += '+'
-    text += u'≡'
+    text += '≡'
     contents.append(Constant(text))
     return TaggedText().complete(contents, 'span class="chunkdecl"', True)
 
@@ -207,10 +207,10 @@ class NewfangledChunkRef(Inset):
       self.origin = start.createorigin()
     else:
       self.origin = Link()
-    self.contents.insert(0, Constant(u'⟨'))
+    self.contents.insert(0, Constant('⟨'))
     self.contents.append(Constant(' '))
     self.contents.append(self.origin)
-    self.contents.append(Constant(u'⟩'))
+    self.contents.append(Constant('⟩'))
 
   def __unicode__(self):
     "Return a printable representation."

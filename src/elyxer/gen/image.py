@@ -53,7 +53,7 @@ class Image(Container):
     if self.origin.exists():
       ImageConverter.instance.convert(self)
     else:
-      Trace.error('Image ' + unicode(self.origin) + ' not found')
+      Trace.error('Image ' + str(self.origin) + ' not found')
     self.setsize()
     self.settag()
 
@@ -87,7 +87,7 @@ class Image(Container):
   def scalevalue(self, value):
     "Scale the value according to the image scale and return it as unicode."
     scaled = value * int(self.size.scale) / 100
-    return unicode(int(scaled)) + 'px'
+    return str(int(scaled)) + 'px'
 
   def settag(self):
     "Set the output tag for the image."
@@ -138,11 +138,11 @@ class ImageConverter(object):
         Trace.error(converter + ' not installed; images will not be processed')
         ImageConverter.active = False
         return
-      Trace.message('Converted ' + unicode(image.origin) + ' to ' +
-          unicode(image.destination))
-    except OSError, exception:
-      Trace.error('Error while converting image ' + unicode(image.origin)
-          + ': ' + unicode(exception))
+      Trace.message('Converted ' + str(image.origin) + ' to ' +
+          str(image.destination))
+    except OSError as exception:
+      Trace.error('Error while converting image ' + str(image.origin)
+          + ': ' + str(exception))
 
   def buildcommand(self, image):
     "Build the command to convert the image."
@@ -152,7 +152,7 @@ class ImageConverter(object):
       command = Options.converter;
     params = self.getparams(image)
     for param in params:
-      command = command.replace('$' + param, unicode(params[param]))
+      command = command.replace('$' + param, str(params[param]))
     # remove unwanted options
     while '[' in command and ']' in command:
       command = self.removeparam(command)
@@ -201,8 +201,8 @@ class ImageFile(object):
     "Get the dimensions of a JPG or PNG image"
     if not self.path.exists():
       return None, None
-    if unicode(self.path) in ImageFile.dimensions:
-      return ImageFile.dimensions[unicode(self.path)]
+    if str(self.path) in ImageFile.dimensions:
+      return ImageFile.dimensions[str(self.path)]
     dimensions = (None, None)
     if self.path.hasext('.png'):
       dimensions = self.getpngdimensions()
@@ -210,7 +210,7 @@ class ImageFile(object):
       dimensions = self.getjpgdimensions()
     elif self.path.hasext('.svg'):
       dimensions = self.getsvgdimensions()
-    ImageFile.dimensions[unicode(self.path)] = dimensions
+    ImageFile.dimensions[str(self.path)] = dimensions
     return dimensions
 
   def getpngdimensions(self):
@@ -227,7 +227,7 @@ class ImageFile(object):
     jpgfile = self.path.open()
     start = self.readword(jpgfile)
     if start != int('ffd8', 16):
-      Trace.error(unicode(self.path) + ' not a JPEG file')
+      Trace.error(str(self.path) + ' not a JPEG file')
       return (None, None)
     self.skipheaders(jpgfile, ['ffc0', 'ffc2'])
     self.seek(jpgfile, 3)

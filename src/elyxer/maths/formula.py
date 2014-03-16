@@ -22,7 +22,7 @@
 # Alex 20090207
 # eLyXer formula processing
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from elyxer.gen.container import *
 from elyxer.util.trace import Trace
 from elyxer.util.clone import *
@@ -73,7 +73,7 @@ class Formula(Container):
 
   def googlecharts(self):
     "Make the contents using Google Charts http://code.google.com/apis/chart/."
-    url = FormulaConfig.urls['googlecharts'] + urllib.quote_plus(self.parsed)
+    url = FormulaConfig.urls['googlecharts'] + urllib.parse.quote_plus(self.parsed)
     img = '<img class="chart" src="' + url + '" alt="' + self.parsed + '"/>'
     self.contents = [Constant(img)]
 

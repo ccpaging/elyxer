@@ -81,7 +81,7 @@ class ParameterDefinition(object):
     "Return a printable representation."
     result = 'param ' + self.name
     if self.value:
-      result += ': ' + unicode(self.value)
+      result += ': ' + str(self.value)
     else:
       result += ' (empty)'
     return result
@@ -212,7 +212,7 @@ class HybridFunction(ParameterFunction):
       return None
     index = int(pos.skipcurrent())
     if 2 + index > len(self.translated):
-      Trace.error('Function f' + unicode(index) + ' is not defined')
+      Trace.error('Function f' + str(index) + ' is not defined')
       return None
     tag = self.translated[2 + index]
     if not '$' in tag:
@@ -255,7 +255,7 @@ class HybridSize(object):
     for name in function.params:
       if name in sizestring:
         size = function.params[name].value.computesize()
-        sizestring = sizestring.replace(name, unicode(size))
+        sizestring = sizestring.replace(name, str(size))
     if '$' in sizestring:
       Trace.error('Unconverted variable in hybrid size: ' + sizestring)
       return 1

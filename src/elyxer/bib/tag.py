@@ -119,11 +119,11 @@ class BibTagParser(object):
     authors = ''
     if len(authorlist) == 1:
       initials = authorlist[0].surname[0:3]
-      authors = unicode(authorlist[0])
+      authors = str(authorlist[0])
     else:
       for author in authorlist:
         initials += author.surname[0:1]
-        authors += unicode(author) + ', '
+        authors += str(author) + ', '
       authors = authors[:-2]
     self.tags['surname'] = BibTag().constant(authorlist[0].surname)
     self.tags['Sur'] = BibTag().constant(initials)

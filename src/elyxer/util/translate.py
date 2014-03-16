@@ -59,7 +59,7 @@ class Translator(object):
     try:
       self.translation = gettext.translation('elyxer', None, langcodes)
     except IOError:
-      Trace.error('No translation for ' + unicode(langcodes))
+      Trace.error('No translation for ' + str(langcodes))
 
   def getmessage(self, key):
     "Get the translated message for the given key."

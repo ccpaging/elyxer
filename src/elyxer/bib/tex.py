@@ -54,8 +54,8 @@ class BibTeX(Container):
       bibfile = BibFile(file, showall)
       bibfile.parse()
       self.entries += bibfile.entries
-      Trace.message('Parsed ' + unicode(bibfile))
-    self.entries.sort(key = unicode)
+      Trace.message('Parsed ' + str(bibfile))
+    self.entries.sort(key = str)
     self.applystyle()
 
   def createheader(self):
@@ -129,7 +129,7 @@ class BibFile(object):
           self.entries.append(newentry)
           self.added += 1
         else:
-          Trace.debug('Ignored entry ' + unicode(newentry))
+          Trace.debug('Ignored entry ' + str(newentry))
           self.ignored += 1
         return
     # Skip the whole line since it's a comment outside an entry
@@ -137,8 +137,8 @@ class BibFile(object):
 
   def __unicode__(self):
     "String representation"
-    string = self.filename + ': ' + unicode(self.added) + ' entries added, '
-    string += unicode(self.ignored) + ' entries ignored'
+    string = self.filename + ': ' + str(self.added) + ' entries added, '
+    string += str(self.ignored) + ' entries ignored'
     return string
 
 class BibEntry(Container):
@@ -148,19 +148,19 @@ class BibEntry(Container):
 
   def detect(self, pos):
     "Throw an error."
-    Trace.error('Tried to detect() in ' + unicode(self))
+    Trace.error('Tried to detect() in ' + str(self))
 
   def parse(self, pos):
     "Throw an error."
-    Trace.error('Tried to parse() in ' + unicode(self))
+    Trace.error('Tried to parse() in ' + str(self))
 
   def isvisible(self):
     "Return if the entry should be visible. Throws an error."
-    Trace.error('Function isvisible() not implemented for ' + unicode(self))
+    Trace.error('Function isvisible() not implemented for ' + str(self))
 
   def isreferenced(self):
     "Return if the entry is referenced. Throws an error."
-    Trace.error('Function isreferenced() not implemented for ' + unicode(self))
+    Trace.error('Function isreferenced() not implemented for ' + str(self))
 
   def __unicode__(self):
     "Return a string representation"
@@ -240,7 +240,7 @@ class StringEntry(SpecialEntry):
       return
     pos.skipspace()
     if not pos.checkskip('{'):
-      Trace.error('Missing opening { in ' + unicode(self))
+      Trace.error('Missing opening { in ' + str(self))
       pos.globincluding('\n')
       return
     pos.pushending('}')
@@ -255,7 +255,7 @@ class StringEntry(SpecialEntry):
       return False
     name = '@' + pos.globalpha()
     if not name.lower() == self.start.lower():
-      Trace.error('Invalid start @' + name +', missing ' + self.start + ' from elyxer.' + unicode(self))
+      Trace.error('Invalid start @' + name +', missing ' + self.start + ' from elyxer.' + str(self))
       pos.globincluding('\n')
       return False
     return True

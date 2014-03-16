@@ -89,7 +89,7 @@ class Parser(object):
   def parseending(self, reader, process):
     "Parse until the current ending is found"
     if not self.ending:
-      Trace.error('No ending for ' + unicode(self))
+      Trace.error('No ending for ' + str(self))
       return
     while not reader.currentline().startswith(self.ending):
       process()
@@ -102,7 +102,7 @@ class Parser(object):
 
   def __unicode__(self):
     "Return a description"
-    return self.__class__.__name__ + ' (' + unicode(self.begin) + ')'
+    return self.__class__.__name__ + ' (' + str(self.begin) + ')'
 
 class LoneCommand(Parser):
   "A parser for just one command line"

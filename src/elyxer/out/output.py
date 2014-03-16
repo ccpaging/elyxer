@@ -30,7 +30,7 @@ class ContainerOutput(object):
 
   def gethtml(self, container):
     "Show an error."
-    Trace.error('gethtml() not implemented for ' + unicode(self))
+    Trace.error('gethtml() not implemented for ' + str(self))
 
   def isempty(self):
     "Decide if the output is empty: by default, not empty."
@@ -63,7 +63,7 @@ class ContentsOutput(ContainerOutput):
       return html
     for element in container.contents:
       if not hasattr(element, 'gethtml'):
-        Trace.error('No html in ' + element.__class__.__name__ + ': ' + unicode(element))
+        Trace.error('No html in ' + element.__class__.__name__ + ': ' + str(element))
         return html
       html += element.gethtml()
     return html
@@ -128,7 +128,7 @@ class TaggedOutput(ContentsOutput):
   def checktag(self):
     "Check that the tag is valid."
     if not self.tag:
-      Trace.error('No tag in ' + unicode(container))
+      Trace.error('No tag in ' + str(container))
       return False
     if self.tag == '':
       return False

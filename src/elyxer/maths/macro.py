@@ -44,7 +44,7 @@ class MacroDefinition(CommandBit):
     self.parseparameters(pos)
     self.factory.defining = False
     Trace.debug('New command ' + self.newcommand + ' (' + \
-        unicode(self.parameternumber) + ' parameters)')
+        str(self.parameternumber) + ' parameters)')
     self.macros[self.newcommand] = self
 
   def parseparameters(self, pos):
@@ -90,8 +90,8 @@ class MacroParameter(FormulaBit):
       Trace.error('Missing parameter start #.')
       return
     self.number = int(pos.skipcurrent())
-    self.original = '#' + unicode(self.number)
-    self.contents = [TaggedBit().constant('#' + unicode(self.number), 'span class="unknown"')]
+    self.original = '#' + str(self.number)
+    self.contents = [TaggedBit().constant('#' + str(self.number), 'span class="unknown"')]
 
 class MacroFunction(CommandBit):
   "A function that was defined using a macro."
@@ -111,7 +111,7 @@ class MacroFunction(CommandBit):
     self.parseoptional(pos, list(macro.defaults))
     self.parsemandatory(pos, macro.parameternumber - len(macro.defaults))
     if len(self.values) < macro.parameternumber:
-      Trace.error('Missing parameters in macro ' + unicode(self))
+      Trace.error('Missing parameters in macro ' + str(self))
 
   def parseoptional(self, pos, defaults):
     "Parse optional parameters."
@@ -167,7 +167,7 @@ class MacroFunction(CommandBit):
     for parameter in self.searchall(MacroParameter):
       index = parameter.number - 1
       if index >= len(self.values):
-        Trace.error('Macro parameter index out of bounds: ' + unicode(index))
+        Trace.error('Macro parameter index out of bounds: ' + str(index))
         return
       replaced[index] = True
       parameter.contents = [self.values[index].clone()]
@@ -177,7 +177,7 @@ class MacroFunction(CommandBit):
 
   def addfilter(self, index, value):
     "Add a filter for the given parameter number and parameter value."
-    original = '#' + unicode(index + 1)
+    original = '#' + str(index + 1)
     value = ''.join(self.values[0].gethtml())
     self.output.addfilter(original, value)
 

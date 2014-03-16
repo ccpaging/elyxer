@@ -192,7 +192,7 @@ class SpacedCommand(CommandBit):
 
   def parsebit(self, pos):
     "Place as contents the command translated and spaced."
-    self.contents = [FormulaConstant(u' ' + self.translated + u' ')]
+    self.contents = [FormulaConstant(' ' + self.translated + ' ')]
 
 class AlphaCommand(EmptyCommand):
   "A command without paramters whose result is alphabetical"

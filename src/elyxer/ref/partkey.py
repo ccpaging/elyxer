@@ -102,7 +102,7 @@ class PartKey(object):
     labeltext = ''
     if self.anchortext:
       labeltext = self.anchortext
-      container.contents.insert(0, Separator(u' '))
+      container.contents.insert(0, Separator(' '))
     label = Label().create(labeltext, self.partkey, type='toc')
     container.contents.insert(0, label)
 

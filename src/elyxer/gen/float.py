@@ -214,13 +214,13 @@ class Listing(Container):
   def modifystring(self, string):
     "Modify a listing string"
     if string.string == '':
-      string.string = u'​'
+      string.string = '​'
     return self.modifycontainer(string)
 
   def modifylayout(self, layout):
     "Modify a standard layout"
     if len(layout.contents) == 0:
-      layout.contents = [Constant(u'​')]
+      layout.contents = [Constant('​')]
     return self.modifycontainer(layout)
 
   def modifycontainer(self, container):
@@ -229,7 +229,7 @@ class Listing(Container):
     if self.numbered:
       self.counter += 1
       tag = 'span class="number-' + self.numbered + '"'
-      contents.insert(0, TaggedText().constant(unicode(self.counter), tag))
+      contents.insert(0, TaggedText().constant(str(self.counter), tag))
     return contents
 
 class FloatNumber(Container):
@@ -253,7 +253,7 @@ class PostFloat(object):
     number = FloatNumber().create(float)
     for caption in float.searchinside(Caption):
       self.postlabels(float, caption)
-      caption.contents = [number, Separator(u' ')] + caption.contents
+      caption.contents = [number, Separator(' ')] + caption.contents
     return float
 
   def postlabels(self, float, caption):

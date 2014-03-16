@@ -80,7 +80,7 @@ class LineReader(object):
     self.current = self.current.rstrip('\n\r')
     self.linenumber += 1
     self.mustread = False
-    Trace.prefix = 'Line ' + unicode(self.linenumber) + ': '
+    Trace.prefix = 'Line ' + str(self.linenumber) + ': '
     if self.linenumber % 1000 == 0:
       Trace.message('Parsing')
 
@@ -110,8 +110,8 @@ class LineWriter(object):
   def write(self, strings):
     "Write a list of strings"
     for string in strings:
-      if not isinstance(string, basestring):
-        Trace.error('Not a string: ' + unicode(string) + ' in ' + unicode(strings))
+      if not isinstance(string, str):
+        Trace.error('Not a string: ' + str(string) + ' in ' + str(strings))
         return
       self.writestring(string)
 

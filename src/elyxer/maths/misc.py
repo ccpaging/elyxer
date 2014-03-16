@@ -42,7 +42,7 @@ class SetCounterFunction(CommandBit):
 
   def setcounter(self, counter, value):
     "Set a global counter."
-    Trace.debug('Setting counter ' + unicode(counter) + ' to ' + unicode(value))
+    Trace.debug('Setting counter ' + str(counter) + ' to ' + str(value))
     NumberGenerator.generator.getcounter(counter).init(value)
 
 class FormulaTag(CommandBit):

@@ -117,7 +117,7 @@ class MultiRowFormula(CommandBit):
     row = self.factory.create(FormulaRow).setalignments(self.alignments)
     for index, originalcell in enumerate(self.rows[-1].contents):
       cell = row.createcell(index)
-      cell.add(FormulaConstant(u' '))
+      cell.add(FormulaConstant(' '))
       row.add(cell)
     self.addrow(row)
 
@@ -175,7 +175,7 @@ class FormulaCases(MultiRowFormula):
     for row in self.contents:
       for cell in row.contents:
         cell.output.settag('span class="case align-l"', True)
-        cell.contents.append(FormulaConstant(u' '))
+        cell.contents.append(FormulaConstant(' '))
     array = TaggedBit().complete(self.contents, 'span class="bracketcases"', True)
     brace = BigBracket(len(self.contents), '{', 'l')
     self.contents = brace.getcontents() + [array]

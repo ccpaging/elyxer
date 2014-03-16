@@ -58,7 +58,7 @@ class ContainerFactory(object):
   def __init__(self):
     "Read table that convert start lines to containers"
     types = dict()
-    for start, typename in ContainerConfig.starts.iteritems():
+    for start, typename in ContainerConfig.starts.items():
       types[start] = globals()[typename]
     self.tree = ParseTree(types)
 
@@ -88,7 +88,7 @@ class ContainerFactory(object):
   def parsecontents(self, container, reader):
     "Parse the contents of a container."
     contents = container.parser.parse(reader)
-    if isinstance(contents, basestring):
+    if isinstance(contents, str):
       # read a string, set as parsed
       container.parsed = contents
       container.contents = []
@@ -119,7 +119,7 @@ class ParseTree(object):
   def __init__(self, types):
     "Create the parse tree"
     self.root = dict()
-    for start, type in types.iteritems():
+    for start, type in types.items():
       self.addstart(type, start)
 
   def addstart(self, type, start):

@@ -67,7 +67,7 @@ class BigBracket(BigSymbol):
 
   def getpiece(self, index):
     "Return the nth piece for the bracket."
-    function = getattr(self, 'getpiece' + unicode(len(self.pieces)))
+    function = getattr(self, 'getpiece' + str(len(self.pieces)))
     return function(index)
 
   def getpiece1(self, index):

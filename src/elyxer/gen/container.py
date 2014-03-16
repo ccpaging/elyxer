@@ -47,7 +47,7 @@ class Container(object):
   def gethtml(self):
     "Get the resulting HTML"
     html = self.output.gethtml(self)
-    if isinstance(html, basestring):
+    if isinstance(html, str):
       Trace.error('Raw string ' + html)
       html = [html]
     return self.escapeall(html)
@@ -61,14 +61,14 @@ class Container(object):
       if Options.iso885915:
         line = self.escape(line, EscapeConfig.iso885915)
         line = self.escapeentities(line)
-      elif not Options.unicode:
+      elif not Options.str:
         line = self.escape(line, EscapeConfig.nonunicode)
       result.append(line)
     return result
 
   def escape(self, line, replacements = EscapeConfig.entities):
     "Escape a line with replacements from elyxer.a map"
-    pieces = replacements.keys()
+    pieces = list(replacements.keys())
     # do them in order
     pieces.sort()
     for piece in pieces:
@@ -84,7 +84,7 @@ class Container(object):
       if ord(pos.current()) > 128:
         codepoint = hex(ord(pos.current()))
         if codepoint == '0xd835':
-          codepoint = hex(ord(pos.next()) + 0xf800)
+          codepoint = hex(ord(next(pos)) + 0xf800)
         result += '&#' + codepoint[1:] + ';'
       else:
         result += pos.current()
@@ -152,7 +152,7 @@ class Container(object):
 
   def tree(self, level = 0):
     "Show in a tree"
-    Trace.debug("  " * level + unicode(self))
+    Trace.debug("  " * level + str(self))
     for container in self.contents:
       container.tree(level + 1)
 
@@ -182,7 +182,7 @@ class Container(object):
     "Get a description"
     if not self.begin:
       return self.__class__.__name__
-    return self.__class__.__name__ + '@' + unicode(self.begin)
+    return self.__class__.__name__ + '@' + str(self.begin)
 
 class BlackBox(Container):
   "A container that does not output anything"
@@ -226,7 +226,7 @@ class StringContainer(Container):
     if ContainerConfig.string['startcommand'] in replaced and len(replaced) > 1:
       # unprocessed commands
       if self.begin:
-        message = 'Unknown command at ' + unicode(self.begin) + ': '
+        message = 'Unknown command at ' + str(self.begin) + ': '
       else:
         message = 'Unknown command: '
       Trace.error(message + replaced.strip())
@@ -247,7 +247,7 @@ class StringContainer(Container):
     "Return a printable representation."
     result = 'StringContainer'
     if self.begin:
-      result += '@' + unicode(self.begin)
+      result += '@' + str(self.begin)
     ellipsis = '...'
     if len(self.string.strip()) <= 15:
       ellipsis = ''

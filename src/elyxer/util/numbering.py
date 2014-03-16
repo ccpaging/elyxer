@@ -60,7 +60,7 @@ class NumberCounter(object):
 
   def gettext(self):
     "Get the next value as a text string."
-    return unicode(self.value)
+    return str(self.value)
 
   def getletter(self):
     "Get the next value as a letter."

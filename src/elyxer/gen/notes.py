@@ -79,7 +79,7 @@ class FootnoteMarker(Container):
     "Create the label for a footnote. Used in hoverfoot and marginfoot."
     self.order = marker.order
     self.contents = [Constant(self.getmark())]
-    space = Constant(u' ')
+    space = Constant(' ')
     self.contents = [space] + self.contents + [space]
     return self
 
@@ -89,7 +89,7 @@ class FootnoteMarker(Container):
       self.contents = [self.link]
     else:
       self.contents = [Constant(self.getmark())]
-    space = Constant(u' ')
+    space = Constant(' ')
     self.contents = [space] + self.contents + [space]
 
   def getmark(self):

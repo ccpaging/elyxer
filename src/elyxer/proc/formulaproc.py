@@ -32,7 +32,7 @@ class MathsProcessor(object):
 
   def process(self, contents, index):
     "Process an element inside a formula."
-    Trace.error('Unimplemented process() in ' + unicode(self))
+    Trace.error('Unimplemented process() in ' + str(self))
 
   def __unicode__(self):
     "Return a printable description."
@@ -74,7 +74,7 @@ class FormulaProcessor(object):
       if bit.type == 'alpha':
         self.italicize(bit, contents)
       elif bit.type == 'font' and last and last.type == 'number':
-        bit.contents.insert(0, FormulaConstant(u' '))
+        bit.contents.insert(0, FormulaConstant(' '))
       last = bit
 
   def traverse(self, bit):

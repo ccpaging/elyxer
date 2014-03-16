@@ -112,8 +112,8 @@ class eLyXerConverter(object):
 
   def __unicode__(self):
     "Printable representation."
-    string = 'Converter with filtering ' + unicode(self.filtering)
-    string += ' and basket ' + unicode(self.basket)
+    string = 'Converter with filtering ' + str(self.filtering)
+    string += ' and basket ' + str(self.basket)
     return string
 
 class InOutParser(object):
@@ -142,7 +142,7 @@ class InOutParser(object):
     else:
       Options.destdirectory = '.'
     if len(args) > 0:
-      raise Exception('Unused arguments: ' + unicode(args))
+      raise Exception('Unused arguments: ' + str(args))
     return self
 
   def getreader(self):

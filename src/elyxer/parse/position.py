@@ -68,7 +68,7 @@ class Position(Globable):
     self.skip(current)
     return current
 
-  def next(self):
+  def __next__(self):
     "Advance the position and return the next character."
     self.skipcurrent()
     return self.current()
@@ -154,13 +154,13 @@ class FilePosition(Position):
     "Return the current line and line number in the file."
     before = self.reader.currentline()[:self.pos - 1]
     after = self.reader.currentline()[self.pos:]
-    return 'line ' + unicode(self.getlinenumber()) + ': ' + before + '*' + after
+    return 'line ' + str(self.getlinenumber()) + ': ' + before + '*' + after
 
   def isout(self):
     "Find out if we are out of the text yet."
     if self.pos > len(self.reader.currentline()):
       if self.pos > len(self.reader.currentline()) + 1:
-        Trace.error('Out of the line ' + self.reader.currentline() + ': ' + unicode(self.pos))
+        Trace.error('Out of the line ' + self.reader.currentline() + ': ' + str(self.pos))
       self.nextline()
     return self.reader.finished()
 
@@ -169,7 +169,7 @@ class FilePosition(Position):
     if self.pos == len(self.reader.currentline()):
       return '\n'
     if self.pos > len(self.reader.currentline()):
-      Trace.error('Out of the line ' + self.reader.currentline() + ': ' + unicode(self.pos))
+      Trace.error('Out of the line ' + self.reader.currentline() + ': ' + str(self.pos))
       return '*'
     return self.reader.currentline()[self.pos]
 

@@ -91,7 +91,7 @@ class TeXCode(Container):
 
   def add(self, piece):
     "Add a new piece to the tag."
-    if isinstance(piece, basestring):
+    if isinstance(piece, str):
       self.addtext(piece)
     else:
       self.contents.append(piece)

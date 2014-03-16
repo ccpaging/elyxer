@@ -135,55 +135,55 @@ class DefaultTemplate(HTMLTemplate):
     "Get the default header (before content)."
     html = []
     if not Options.html:
-      html.append(u'<?xml version="1.0" encoding="<!--$encoding-->"?>\n')
-      html.append(u'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n')
-      html.append(u'<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">\n')
+      html.append('<?xml version="1.0" encoding="<!--$encoding-->"?>\n')
+      html.append('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n')
+      html.append('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">\n')
     else:
-      html.append(u'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">\n')
-      html.append(u'<html lang="en">\n')
-    html.append(u'<head>\n')
-    html.append(u'<meta http-equiv="Content-Type" content="text/html; charset=<!--$encoding-->"/>\n')
-    html.append(u'<meta name="generator" content="http://www.nongnu.org/elyxer/"/>\n')
-    html.append(u'<meta name="create-date" content="<!--$date-->"/>\n')
+      html.append('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">\n')
+      html.append('<html lang="en">\n')
+    html.append('<head>\n')
+    html.append('<meta http-equiv="Content-Type" content="text/html; charset=<!--$encoding-->"/>\n')
+    html.append('<meta name="generator" content="http://www.nongnu.org/elyxer/"/>\n')
+    html.append('<meta name="create-date" content="<!--$date-->"/>\n')
     html += self.getcss()
-    html.append(u'<title><!--$title--></title>\n')
+    html.append('<title><!--$title--></title>\n')
     if Options.jsmath:
-      html.append(u'<script type="text/javascript" src="<!--$jsmath-->/plugins/noImageFonts.js"></script>\n')
-      html.append(u'<script type="text/javascript" src="<!--$jsmath-->/easy/load.js"></script>\n')
+      html.append('<script type="text/javascript" src="<!--$jsmath-->/plugins/noImageFonts.js"></script>\n')
+      html.append('<script type="text/javascript" src="<!--$jsmath-->/easy/load.js"></script>\n')
     if Options.mathjax:
       if Options.mathjax == 'remote':
-        html.append(u'<script type="text/javascript"\n')
-        html.append(u'  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">\n')
-        html.append(u'</script>\n')
+        html.append('<script type="text/javascript"\n')
+        html.append('  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">\n')
+        html.append('</script>\n')
       else:
-        html.append(u'<script type="text/javascript" src="<!--$mathjax-->/MathJax.js">\n')
-        html.append(u'  //  Load MathJax and get it running\n')
-        html.append(u'  MathJax.Hub.Config({ jax: ["input/TeX"],\n') # output/HTML-CSS
-        html.append(u'  config: ["MMLorHTML.js"],\n')
-        html.append(u'  extensions: ["TeX/AMSmath.js","TeX/AMSsymbols.js"],\n')
-        html.append(u'  "HTML-CSS": { imageFont: null }\n')
-        html.append(u'  });\n')
-        html.append(u'</script>\n')
+        html.append('<script type="text/javascript" src="<!--$mathjax-->/MathJax.js">\n')
+        html.append('  //  Load MathJax and get it running\n')
+        html.append('  MathJax.Hub.Config({ jax: ["input/TeX"],\n') # output/HTML-CSS
+        html.append('  config: ["MMLorHTML.js"],\n')
+        html.append('  extensions: ["TeX/AMSmath.js","TeX/AMSsymbols.js"],\n')
+        html.append('  "HTML-CSS": { imageFont: null }\n')
+        html.append('  });\n')
+        html.append('</script>\n')
     html += self.getfavicon()
     html.append('</head>\n')
     html.append('<body>\n')
     html.append('<div id="globalWrapper">\n')
     if Options.jsmath or Options.mathjax:
       if Options.mathjax:
-        html.append(u'<script type="math/tex">\n')
-        html.append(u'\\newcommand{\\lyxlock}{}\n')
-        html.append(u'</script>\n')
-      html.append(u'<noscript>\n')
-      html.append(u'<div class="warning">\n')
+        html.append('<script type="math/tex">\n')
+        html.append('\\newcommand{\\lyxlock}{}\n')
+        html.append('</script>\n')
+      html.append('<noscript>\n')
+      html.append('<div class="warning">\n')
       html.append(Translator.translate('jsmath-warning'))
       if Options.jsmath:
-        html.append(u'<a href="http://www.math.union.edu/locate/jsMath">jsMath</a>')
+        html.append('<a href="http://www.math.union.edu/locate/jsMath">jsMath</a>')
       if Options.mathjax:
-        html.append(u'<a href="http://www.mathjax.org/">MathJax</a>')
+        html.append('<a href="http://www.mathjax.org/">MathJax</a>')
       html.append(Translator.translate('jsmath-requires'))
       html.append(Translator.translate('jsmath-enable') + '\n')
-      html.append(u'</div><hr/>\n')
-      html.append(u'</noscript>\n')
+      html.append('</div><hr/>\n')
+      html.append('</noscript>\n')
     return html
 
   def getcss(self):
@@ -191,19 +191,19 @@ class DefaultTemplate(HTMLTemplate):
     html = []
     for cssdoc in Options.css:
       if cssdoc != '':
-        html.append(u'<link rel="stylesheet" href="' + cssdoc + '" type="text/css" media="all"/>\n')
+        html.append('<link rel="stylesheet" href="' + cssdoc + '" type="text/css" media="all"/>\n')
     for cssfile in Options.embedcss:
-      html.append(u'<style type="text/css">\n')
+      html.append('<style type="text/css">\n')
       html += BulkFile(cssfile).readall()
-      html.append(u'</style>\n')
+      html.append('</style>\n')
     return html
 
   def getfavicon(self):
     "Get the favicon header, foolproof version."
     html = []
     if Options.favicon != '':
-       html.append(u'<link rel="shortcut icon" href="%s" type="image/x-icon">\n' % (Options.favicon,))
-       html.append(u'<link rel="icon" href="%s" type="image/x-icon">\n' % (Options.favicon,))
+       html.append('<link rel="shortcut icon" href="%s" type="image/x-icon">\n' % (Options.favicon,))
+       html.append('<link rel="icon" href="%s" type="image/x-icon">\n' % (Options.favicon,))
     return html
 
   def getfooter(self):
@@ -243,7 +243,7 @@ class VariableMap(object):
     self.variables['author'] = DocumentAuthor().getvalue()
     self.variables['version'] = GeneralConfig.version['number'] + ' (' \
         + GeneralConfig.version['date'] + ')'
-    self.variables['year'] = unicode(datetime.date.today().year)
+    self.variables['year'] = str(datetime.date.today().year)
     self.variables['date'] = datetime.date.today().isoformat()
     self.variables['datetime'] = datetime.datetime.now().isoformat()
     self.variables['css'] = Options.css[0]

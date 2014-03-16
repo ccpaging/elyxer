@@ -100,11 +100,11 @@ class ContainerSize(object):
   def checkimage(self, width, height):
     "Check image dimensions, set them if possible."
     if width:
-      self.maxwidth = unicode(width) + 'px'
+      self.maxwidth = str(width) + 'px'
       if self.scale and not self.width:
         self.width = self.scalevalue(width)
     if height:
-      self.maxheight = unicode(height) + 'px'
+      self.maxheight = str(height) + 'px'
       if self.scale and not self.height:
         self.height = self.scalevalue(height)
     if self.width and not self.height:
@@ -115,7 +115,7 @@ class ContainerSize(object):
   def scalevalue(self, value):
     "Scale the value according to the image scale and return it as unicode."
     scaled = value * int(self.scale) / 100
-    return unicode(int(scaled)) + 'px'
+    return str(int(scaled)) + 'px'
 
   def removepercentwidth(self):
     "Remove percent width if present, to set it at the figure level."
@@ -132,7 +132,7 @@ class ContainerSize(object):
   def addstyle(self, container):
     "Add the proper style attribute to the output tag."
     if not isinstance(container.output, TaggedOutput):
-      Trace.error('No tag to add style, in ' + unicode(container))
+      Trace.error('No tag to add style, in ' + str(container))
     if not self.width and not self.height and not self.maxwidth and not self.maxheight:
       # nothing to see here; move along
       return
