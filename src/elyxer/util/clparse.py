@@ -64,7 +64,9 @@ class CommandLineParser(object):
       initial = args[0]
       del args[0]
       return key, self.readquoted(args, initial)
-    value = args[0].decode('utf-8')
+#   value = args[0].decode('utf-8')
+# 2to3
+    value = args[0]
     del args[0]
     if isinstance(current, list):
       current.append(value)

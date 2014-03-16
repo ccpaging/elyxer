@@ -80,7 +80,7 @@ class NumberCounter(object):
     number = self.value
     for numeral, value in self.romannumerals:
       if number >= value:
-        result += numeral * (number / value)
+        result += numeral * int((number / value))
         number = number % value
     return result
 

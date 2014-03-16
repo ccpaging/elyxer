@@ -119,6 +119,8 @@ class Options(object):
       except:
         Trace.error('--splitpart needs a numeric argument, not ' + Options.splitpart)
         self.usage()
+    else:
+      Options.splitpart=0
     if Options.lowmem or Options.toc or Options.tocfor:
       Options.memory = False
     self.parsefootnotes()

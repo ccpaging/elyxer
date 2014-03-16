@@ -31,7 +31,9 @@ class LineReader(object):
   "Reads a file line by line"
 
   def __init__(self, filename):
-    if isinstance(filename, file):
+#   if isinstance(filename, file):
+# 2to3
+    if hasattr(filename, 'read'): 
       self.file = filename
     else:
       self.file = codecs.open(filename, 'rU', 'utf-8')
@@ -73,7 +75,9 @@ class LineReader(object):
   def readline(self):
     "Read a line from elyxer.file"
     self.current = self.file.readline()
-    if not isinstance(self.file, codecs.StreamReaderWriter):
+ # 2to3
+ #   if not isinstance(self.file, codecs.StreamReaderWriter):
+    if type(self.current) is bytes:
       self.current = self.current.decode('utf-8')
     if len(self.current) == 0:
       self.depleted = True
@@ -101,7 +105,9 @@ class LineWriter(object):
   file = False
 
   def __init__(self, filename):
-    if isinstance(filename, file):
+#   if isinstance(filename, file):
+# 2to3
+    if hasattr(filename, 'read'): 
       self.file = filename
       self.filename = None
     else:
