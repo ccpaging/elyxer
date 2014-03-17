@@ -32,4 +32,4 @@ test/copyimages/*.jpg
 test/copyimages/docs
 test/subdir/mourning.png
 forks
-
+mydoc/*

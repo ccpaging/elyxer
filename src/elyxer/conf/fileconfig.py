@@ -169,7 +169,7 @@ class ConfigToPython(ConfigWriter):
     names.sort()
     for name in names:
       value = self.serializer.pyserialize(contents[name])
-      piece = 'u\'' + self.serializer.escape(name) + '\':' + value + ', '
+      piece = '\'' + self.serializer.escape(name) + '\':' + value + ', '
       string = self.append(string, piece)
     self.writer.writeline(string)
     self.writer.writeline('      }')
@@ -218,10 +218,10 @@ class ConfigSerializer(object):
   def pyserialize(self, object):
     "Convert an object to a Python definition"
     if not isinstance(object, list):
-      return 'u\'' + self.escape(object) + '\''
-    result = '[u\''
+      return '\'' + self.escape(object) + '\''
+    result = '[\''
     for value in object:
-      result += self.escape(value) + '\',u\''
+      result += self.escape(value) + '\',\''
     if len(object) > 0:
       result = result[:-2]
     return result + ']'
